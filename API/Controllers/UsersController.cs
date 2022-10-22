@@ -1,34 +1,40 @@
 ﻿using API.Data;
+using API.DTOs;
 using API.Entities;
+using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-	[ApiController]
-	[Route("api/[controller]")]
-	public class UsersController : ControllerBase
+	[Authorize]
+	public class UsersController : BaseApiController
 	{
-		private readonly DataContext _context;
+		private readonly IUserRepository _userRepository;
+		private readonly IMapper _mapper;
 
-		public UsersController(DataContext context)
+		public UsersController(IUserRepository userRepository,IMapper mapper)
 		{
-			_context = context;
+			_userRepository = userRepository;
+			_mapper = mapper;
 		}
 		[HttpGet]
-		[AllowAnonymous]
-		public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+		public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
 		{
-			return await _context.Users.ToListAsync();
+			var users = await _userRepository.GetUsersAsync();
+
+			var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
+
+			return Ok(usersToReturn) ;
 		}
 
-		[Authorize]
-		[HttpGet("{id}")]
-		public ActionResult<AppUser> GetUsers(int id)
+		//https://localhost:5001/api/users/gina
+		[HttpGet("{username}")]
+		public async Task<ActionResult<MemberDto>> GetUsers(string username)
 		{
-			var user = _context.Users.Find(id);
-			return user;
+			return await _userRepository.GetMemberAsync(username);
 		}
 	}
 }
