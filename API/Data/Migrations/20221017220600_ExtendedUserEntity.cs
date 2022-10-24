@@ -44,13 +44,13 @@ namespace API.Data.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "Interest",
+                name: "Interests",
                 table: "Users",
                 type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "Introductin",
+                name: "Introduction",
                 table: "Users",
                 type: "nvarchar(max)",
                 nullable: true);
@@ -129,11 +129,11 @@ namespace API.Data.Migrations
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "Interest",
+                name: "Interests",
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "Introductin",
+                name: "Introduction",
                 table: "Users");
 
             migrationBuilder.DropColumn(
