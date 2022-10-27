@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "ngx-spinner": "^14.0.0",
     "ngx-toastr": "^15.2.0"
   }
 }
