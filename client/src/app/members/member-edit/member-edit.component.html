@@ -4,10 +4,11 @@
   </div>
   <div class="col-8">
     <div class="alert alert-info" *ngIf="editForm.dirty">
-      <p><strong>
-        Information:
+      <p>
+        <strong>
+          Information:
         </strong>
-      You have made changes. Any unsaved changes will be lost.
+        You have made changes. Any unsaved changes will be lost.
       </p>
     </div>
   </div>
@@ -26,15 +27,15 @@
         </div>
         <div>
           <strong>Last Active:</strong>
-          <p>{{member.lastActive}}</p>
+          <p>{{member.lastActive | timeago}}</p>
         </div>
         <div>
           <strong>Member Since:</strong>
-          <p>{{member.created}}</p>
+          <p>{{member.created | date:'dd MMM yyyy'}}</p>
         </div>
       </div>
       <div class="card-footer">
-          <button type="submit" [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save changes</button>
+        <button type="submit" [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save changes</button>
       </div>
     </div>
   </div>
@@ -51,7 +52,7 @@
           <h4 class="mt-2">Location details:</h4>
           <div class="form-inline">
             <label for="city">City:</label>
-            <input  [(ngModel)]="member.city" type="text" name="city" class="form-control mx-2" value="" />
+            <input [(ngModel)]="member.city" type="text" name="city" class="form-control mx-2" value="" />
             <label for="city">Country:</label>
             <input [(ngModel)]="member.country" type="text" name="country" class="form-control mx-2" value="" />
           </div>
